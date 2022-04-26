@@ -1,0 +1,7 @@
+#box1{
+    border: 2px solid black;
+    height: 100px;
+    width: 35%;
+    border-radius: 2px;  
+    margin: 15px auto;
+  }
