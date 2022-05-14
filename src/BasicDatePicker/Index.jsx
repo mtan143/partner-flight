@@ -1,22 +1,47 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import PropTypes from 'prop-types';
+import { useForm, Controller } from "react-hook-form";
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import moment from 'moment';
+import dateFormat from 'dateformat';
 
-export default function BasicDatePicker() {
-  const [value, setValue] = React.useState(null);
+BasicDatePicker.propTypes = {
+  form: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  lable: PropTypes.string,
+  data: PropTypes.object.isRequired,
+};
+
+function BasicDatePicker(props) {
+  const { form, name, label, } = props;
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-        label="Ngày khởi hành"
-        value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        renderInput={(params) => <TextField {...params} />}
+    <MuiPickersUtilsProvider libInstance={moment} utils={DateFnsUtils}>
+      <Controller
+        name={name}
+        control={form.control}
+        defaultValue={new Date()}
+
+        render={({ field: { ref, ...rest } }) => (
+          <KeyboardDatePicker
+            autoOk={true}
+            variant="inline"
+            inputVariant="outlined"
+            margin="normal"
+            label={label}
+            id="date-picker-dialog"
+            format="yyyy/MM/dd"
+            KeyboardButtonProps={{
+              "aria-label": "change date"
+            }}
+            {...rest}
+          />
+        )}
       />
-    </LocalizationProvider>
+    </MuiPickersUtilsProvider>
   );
 }
+export default BasicDatePicker;

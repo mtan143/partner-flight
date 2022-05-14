@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,6 +17,11 @@ export default function BasicSelect() {
         setDes(event.target.value);
     };
 
+    useEffect(() => {
+        console.log(departurePlace);
+        console.log(destination);
+    }, [departurePlace, destination])
+
 
     return (
         <>
@@ -30,14 +35,14 @@ export default function BasicSelect() {
                     onChange={handleChangeDep}
                 >
                     <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value={1}>TP HCM, Việt Nam</MenuItem>
-                    <MenuItem value={2}>Hà Nội, Việt Nam</MenuItem>
-                    <MenuItem value={3}>Vinh, Việt Nam</MenuItem>
-                    <MenuItem value={4}>Phú Quốc, Việt Nam</MenuItem>
-                    <MenuItem value={5}>Đà Lạt, Việt Nam</MenuItem>
-                    <MenuItem value={6}>Đà Nẵng, Việt Nam</MenuItem>
-                    <MenuItem value={7}>Huế, Việt Nam</MenuItem>
-                    <MenuItem value={8}>Nha Trang, Việt Nam</MenuItem>
+                    <MenuItem value="TP HCM, Việt Nam">TP HCM, Việt Nam</MenuItem>
+                    <MenuItem value="Hà Nội, Việt Nam">Hà Nội, Việt Nam</MenuItem>
+                    <MenuItem value="Vinh, Việt Nam">Vinh, Việt Nam</MenuItem>
+                    <MenuItem value="Phú Quốc, Việt Nam">Phú Quốc, Việt Nam</MenuItem>
+                    <MenuItem value="Đà Lạt, Việt Nam">Đà Lạt, Việt Nam</MenuItem>
+                    <MenuItem value="Đà Nẵng, Việt Nam">Đà Nẵng, Việt Nam</MenuItem>
+                    <MenuItem value="Huế, Việt Nam">Huế, Việt Nam</MenuItem>
+                    <MenuItem value="Nha Trang, Việt Nam">Nha Trang, Việt Nam</MenuItem>
                 </Select>
             </FormControl>
 
@@ -51,14 +56,14 @@ export default function BasicSelect() {
                     onChange={handleChangeDes}
                 >
                     <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value={1}>TP HCM, Việt Nam</MenuItem>
-                    <MenuItem value={2}>Hà Nội, Việt Nam</MenuItem>
-                    <MenuItem value={3}>Vinh, Việt Nam</MenuItem>
-                    <MenuItem value={4}>Phú Quốc, Việt Nam</MenuItem>
-                    <MenuItem value={5}>Đà Lạt, Việt Nam</MenuItem>
-                    <MenuItem value={6}>Đà Nẵng, Việt Nam</MenuItem>
-                    <MenuItem value={7}>Huế, Việt Nam</MenuItem>
-                    <MenuItem value={8}>Nha Trang, Việt Nam</MenuItem>
+                    <MenuItem value="TP HCM, Việt Nam">TP HCM, Việt Nam</MenuItem>
+                    <MenuItem value="Hà Nội, Việt Nam">Hà Nội, Việt Nam</MenuItem>
+                    <MenuItem value="Vinh, Việt Nam">Vinh, Việt Nam</MenuItem>
+                    <MenuItem value="Phú Quốc, Việt Nam">Phú Quốc, Việt Nam</MenuItem>
+                    <MenuItem value="Đà Lạt, Việt Nam">Đà Lạt, Việt Nam</MenuItem>
+                    <MenuItem value="Đà Nẵng, Việt Nam">Đà Nẵng, Việt Nam</MenuItem>
+                    <MenuItem value="Huế, Việt Nam">Huế, Việt Nam</MenuItem>
+                    <MenuItem value="Nha Trang, Việt Nam">Nha Trang, Việt Nam</MenuItem>
                 </Select>
             </FormControl>
         </>

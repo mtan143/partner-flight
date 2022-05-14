@@ -8,11 +8,11 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import "./list.css";
 
-list.propTypes = {
+// List.propTypes = {
 
-};
+// };
 
-function list(props) {
+function List(props) {
     return (
         <>
             <h2 style={{ color: '#1BA0E2' }}>Flight List</h2>
@@ -31,4 +31,4 @@ function list(props) {
     )
 }
 
-export default list;
+export default List;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -8,6 +8,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import './DoanhThu.css'
 import DoanhThuList from './DoanhThuList/DoanhThuList';
+import axios from 'axios';
 
 DoanhThu.propTypes = {
 
@@ -18,6 +19,7 @@ function DoanhThu(props) {
     const handleChangeThu = (event) => {
         setThu(event.target.value);
     };
+
     return (
         <>
             <h2 style={{ color: '#1BA0E2' }}>Thống kê doanh thu</h2>

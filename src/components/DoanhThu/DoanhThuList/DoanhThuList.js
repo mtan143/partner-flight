@@ -1,190 +1,202 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import Container from '@material-ui/core/Container';
 import './style.css';
+import axios from 'axios';
 
-const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-    {
-        id: 'population',
-        label: 'Population',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
+const useRowStyles = makeStyles({
+    root: {
+        '& > *': {
+            borderBottom: 'unset',
+        },
     },
-    {
-        id: 'size',
-        label: 'Size\u00a0(km\u00b2)',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'density',
-        label: 'Density',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toFixed(2),
-    },
-];
-
-function createData(name, code, population, size) {
-    const density = population / size;
-    return { name, code, population, size, density };
+});
+function createData(flightCode, flightName, departure, time, capital, totalPrice, totalTicket, totalPriceTicket) {
+    return {
+        flightCode,
+        flightName,
+        departure,
+        time,
+        capital,
+        totalPrice,
+        totalTicket,
+        totalPriceTicket,
+        flightDetail: [
+            { classType: 'Phổ thông', quantityTicket: '11091700', totalTicketSale: '222', ticketPrice: 3, totalPriceDetail: 'dd', totalSale: 'hg' },
+            { classType: 'Phổ thông đặc biệt', quantityTicket: '11091700', totalTicketSale: '222', ticketPrice: 3, totalPriceDetail: 'dd', totalSale: 'hg' },
+            { classType: 'Thương gia', quantityTicket: '11091700', totalTicketSale: '222', ticketPrice: 3, totalPriceDetail: 'dd', totalSale: 'hg' },
+            { classType: 'Hạng nhất', quantityTicket: '11091700', totalTicketSale: '222', ticketPrice: 3, totalPriceDetail: 'dd', totalSale: 'hg' },
+        ],
+    };
 }
 
-const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
-];
-function DoanhThuList(props) {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
+function Row(props) {
+    const { row } = props;
+    const [open, setOpen] = React.useState(false);
+    const classes = useRowStyles();
 
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
-                                                </TableCell>
-                                            );
-                                        })}
+        <>
+            <TableRow className={classes.root}>
+                <TableCell>
+                    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </IconButton>
+                </TableCell>
+                <TableCell component="th" scope="row" style={{ textAlign: "center" }}>
+                    {row.flightCode}
+                </TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.flightName}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.departure}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.time}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.capital}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.totalPrice}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.totalTicket}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.totalPriceTicket}</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0, color: 'red', backgroundColor: '#E8EAF6' }} colSpan={12}>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <Box margin={1}>
+                            <Typography variant="h6" gutterBottom component="div">
+                                Chi tiết chuyến bay
+                            </Typography>
+                            <Table size="small" aria-label="purchases">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell style={{ fontSize: '17px', textAlign: 'left', color: '#01579B' }}>
+                                            Hạng ghế
+                                        </TableCell>
+                                        <TableCell style={{ fontSize: '17px', textAlign: 'center', color: '#01579B' }}>
+                                            Số lượng vé
+                                        </TableCell>
+                                        <TableCell style={{ fontSize: '17px', textAlign: 'center', color: '#01579B' }}>
+                                            Số lượng vé bán được
+                                        </TableCell>
+                                        <TableCell style={{ fontSize: '17px', textAlign: 'center', color: '#01579B' }}>
+                                            Giá vé
+                                        </TableCell>
+                                        <TableCell style={{ fontSize: '17px', textAlign: 'center', color: '#01579B' }}>
+                                            Tổng tiền
+                                        </TableCell>
+                                        <TableCell style={{ fontSize: '17px', textAlign: 'center', color: '#01579B' }}>
+                                            Tổng tiền bán được
+                                        </TableCell>
                                     </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </Paper>
+                                </TableHead>
+                                <TableBody>
+                                    {row.flightDetail.map((flightDetailRow) => (
+                                        // key={flightDetailRow.classTypes}
+                                        <TableRow>
+                                            <TableCell component="th" scope="row" style={{ textAlign: 'left' }}>
+                                                {flightDetailRow.classType}
+                                            </TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.quantityTicket}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.totalTicketSale}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.ticketPrice}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.totalPriceDetail}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>
+                                                {/* {Math.round(flightDetailRow.amount * row.price * 100) / 100} */}
+                                                {flightDetailRow.totalSale}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Box>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </>
     );
-    /*return (
-        <div style={{ marginTop: 15 }}>
-            <table className='DTList'>
-                <tr>
-                    <th rowSpan={2}>
-                        Chuyến bay
-                    </th>
-                    <th rowSpan={2}>
-                        Ngày
-                    </th>
-                    <th colSpan={4}>
-                        Hạng ghế
-                    </th>
-                    <th rowSpan={2}>
-                        Số vé còn lại
-                    </th>
-                    <th rowSpan={2}>
-                        Tổng tiền
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        Phổ thông
-                    </th>
-                    <th>
-                        Phổ thông đặc biệt
-                    </th>
-                    <th>
-                        Thương gia
-                    </th>
-                    <th>
-                        Hạng nh
-                    </th>
-                </tr>
+}
+Row.propTypes = {
+    row: PropTypes.shape({
+        flightCode: PropTypes.string.isRequired,
+        flightName: PropTypes.string.isRequired,
+        departure: PropTypes.string.isRequired,
+        history: PropTypes.arrayOf(
+            PropTypes.shape({
+                amount: PropTypes.number.isRequired,
+                customerId: PropTypes.string.isRequired,
+                date: PropTypes.string.isRequired,
+            }),
+        ).isRequired,
+        time: PropTypes.string.isRequired,
+        capital: PropTypes.number.isRequired,
+        totalPrice: PropTypes.string.isRequired,
+        totalTicket: PropTypes.number.isRequired,
+        totalPriceTicket: PropTypes.string.isRequired,
+    }).isRequired,
+};
+const rows = [
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
+];
+export default function CollapsibleTable() {
 
-                <tr >
-                    <td>
-                        dl
-                    </td>
-                    <td>
-                        dl
-                    </td>
-                    <td>
-                        dl
-                    </td>
-                    <td>
-                        dl
-                    </td>
-                    <td>
-                        dl
-                    </td>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        3
-                    </td>
-                    <td>
-                        4
-                    </td>
-                </tr>
-            </table>
-        </div>
-    );*/
+    const [list, setList] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const response = await axios.get(
+                "https://flight-mana.herokuapp.com/api/customers/flights/airline/AL978AWBCDVJ",
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            console.log(response.data.data);
+            setList(response.data.data);
+        }
+        fetch();
+    }, []);
+    return (
+
+        <TableContainer component={Paper} style={{ marginTop: '40px', }}>
+            <Table aria-label="collapsible table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell />
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Mã chuyến bay</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tên chuyến bay</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Ngày khởi hành</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Thời gian</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Vốn</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tổng tiền bán được</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tổng vé</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tổng vé bán được</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.map((row) => (
+                        <Row key={row.name} row={row} />
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
+
 }
 
-export default DoanhThuList;
+// export default DoanhThuList;

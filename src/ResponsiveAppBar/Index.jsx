@@ -41,7 +41,7 @@ function Index(props) {
                             </Link>
                         </Button>
                     </Typography>
-                    <Button color="inherit">Logout</Button>
+                    <Button style={{ color: "white" }}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </Box>
