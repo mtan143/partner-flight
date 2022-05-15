@@ -15,7 +15,7 @@ DoanhThu.propTypes = {
 };
 
 function DoanhThu(props) {
-    const [daonhThu, setThu] = React.useState('');
+    const [doanhThu, setThu] = React.useState('');
     const handleChangeThu = (event) => {
         setThu(event.target.value);
     };
@@ -28,11 +28,10 @@ function DoanhThu(props) {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={daonhThu}
+                    value={doanhThu}
                     label="Thống kê"
                     onChange={handleChangeThu}
                 >
-                    <MenuItem value=""><em>None</em></MenuItem>
                     <MenuItem value={1}>Theo ngày</MenuItem>
                     <MenuItem value={2}>Theo tháng</MenuItem>
                     <MenuItem value={3}>Theo năm</MenuItem>

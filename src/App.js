@@ -5,8 +5,8 @@ import ResponsiveAppBar from './ResponsiveAppBar/Index';
 // import BasicTable from './BasicTable/Index';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Component } from 'react';
-import AddPage from './components/AddPage/Add';
-import ListPage from './components/ListPage/List';
+import AddPage from './components/AddPage/add';
+import ListPage from './components/ListPage/list';
 import DoanhThu from './components/DoanhThu/DoanhThu';
 // import Footer from './Footer/Index';
 

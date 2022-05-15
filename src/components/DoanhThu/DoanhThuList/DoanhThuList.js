@@ -17,6 +17,8 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Container from '@material-ui/core/Container';
 import './style.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import flightApi from '../../../Api/flightApi';
 
 const useRowStyles = makeStyles({
     root: {
@@ -25,31 +27,29 @@ const useRowStyles = makeStyles({
         },
     },
 });
-function createData(flightCode, flightName, departure, time, capital, totalPrice, totalTicket, totalPriceTicket) {
-    return {
-        flightCode,
-        flightName,
-        departure,
-        time,
-        capital,
-        totalPrice,
-        totalTicket,
-        totalPriceTicket,
-        flightDetail: [
-            { classType: 'Phổ thông', quantityTicket: '11091700', totalTicketSale: '222', ticketPrice: 3, totalPriceDetail: 'dd', totalSale: 'hg' },
-            { classType: 'Phổ thông đặc biệt', quantityTicket: '11091700', totalTicketSale: '222', ticketPrice: 3, totalPriceDetail: 'dd', totalSale: 'hg' },
-            { classType: 'Thương gia', quantityTicket: '11091700', totalTicketSale: '222', ticketPrice: 3, totalPriceDetail: 'dd', totalSale: 'hg' },
-            { classType: 'Hạng nhất', quantityTicket: '11091700', totalTicketSale: '222', ticketPrice: 3, totalPriceDetail: 'dd', totalSale: 'hg' },
-        ],
-    };
-}
 
 
 function Row(props) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
-
+    const t = (List) => {
+        let total=0;
+        for(var i = 0 ;i < 4; i++){ 
+            total += (List[i].quantity - List[i].remainingQuantity);
+        };
+        return total;
+    };
+    function formatVnd(n, currency) {
+        return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + currency;
+      };
+    const tMoney = (List) => {
+        let total=0;
+        for(var i = 0 ;i < 4; i++){ 
+            total += (List[i].price*(List[i].quantity - List[i].remainingQuantity));
+        };
+        return total;
+    }
     return (
         <>
             <TableRow className={classes.root}>
@@ -61,13 +61,12 @@ function Row(props) {
                 <TableCell component="th" scope="row" style={{ textAlign: "center" }}>
                     {row.flightCode}
                 </TableCell>
-                <TableCell style={{ textAlign: "center" }}>{row.flightName}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.name}</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{row.departure}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{row.time}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{row.capital}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{row.totalPrice}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{row.totalTicket}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{row.totalPriceTicket}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.timeDeparture}-{row.timeArrival}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{t(row.classTypeList)}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{row.quantityTicket}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{formatVnd(tMoney(row.classTypeList),"VNĐ")}</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0, color: 'red', backgroundColor: '#E8EAF6' }} colSpan={12}>
@@ -100,19 +99,19 @@ function Row(props) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.flightDetail.map((flightDetailRow) => (
-                                        // key={flightDetailRow.classTypes}
-                                        <TableRow>
+                                    {row.classTypeList.map((flightDetailRow) => (
+                                         
+                                        <TableRow key={flightDetailRow.classTypes} >
                                             <TableCell component="th" scope="row" style={{ textAlign: 'left' }}>
                                                 {flightDetailRow.classType}
                                             </TableCell>
-                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.quantityTicket}</TableCell>
-                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.totalTicketSale}</TableCell>
-                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.ticketPrice}</TableCell>
-                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.totalPriceDetail}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.quantity}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{(flightDetailRow.quantity - flightDetailRow.remainingQuantity)}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{formatVnd(flightDetailRow.price ,"VNĐ")}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{formatVnd((flightDetailRow.price  * flightDetailRow.quantity),"VNĐ")}</TableCell>
                                             <TableCell style={{ textAlign: 'center' }}>
                                                 {/* {Math.round(flightDetailRow.amount * row.price * 100) / 100} */}
-                                                {flightDetailRow.totalSale}
+                                                {formatVnd(flightDetailRow.price *(flightDetailRow.quantity - flightDetailRow.remainingQuantity),"VNĐ")}
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -144,33 +143,23 @@ Row.propTypes = {
         totalPriceTicket: PropTypes.string.isRequired,
     }).isRequired,
 };
-const rows = [
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-    createData('00011945040522SGNDAD', 'Từ tp Hồ Chí Minh đến Đà Nẵng', '2022-05-25', '19:45 - 20:30', 24, '95 triệu', 250, '25 triệu'),
-];
 export default function CollapsibleTable() {
 
-    const [list, setList] = useState([]);
     useEffect(() => {
-        const fetch = async () => {
-            const response = await axios.get(
-                "https://flight-mana.herokuapp.com/api/customers/flights/airline/AL978AWBCDVJ",
-                { headers: { "Content-Type": "application/json" } }
-            );
-
-            console.log(response.data.data);
-            setList(response.data.data);
+        const fetchFlights = async () =>{ 
+            try{
+                const flightList = await flightApi.getAll("AL978AWBCDVJ");
+                console.log(flightList.data);
+                setList(flightList.data); 
+             }
+             catch (error){
+                    console.log('Fail to fetch flight list', error);
+             }
         }
-        fetch();
-    }, []);
+        fetchFlights();
+    },[]);
+    const [list, setList] = useState([]);
+    
     return (
 
         <TableContainer component={Paper} style={{ marginTop: '40px', }}>
@@ -182,15 +171,14 @@ export default function CollapsibleTable() {
                         <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tên chuyến bay</TableCell>
                         <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Ngày khởi hành</TableCell>
                         <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Thời gian</TableCell>
-                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Vốn</TableCell>
-                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tổng tiền bán được</TableCell>
-                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tổng vé</TableCell>
                         <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tổng vé bán được</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tổng vé</TableCell>
+                        <TableCell style={{ textAlign: "center", color: '#1BA0E2', fontSize: '20px' }}>Tổng tiền bán được</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <Row key={row.name} row={row} />
+                <TableBody >
+                    {list.map((row) => (
+                        <Row key={row.flightCode} row={row} />
                     ))}
                 </TableBody>
             </Table>
