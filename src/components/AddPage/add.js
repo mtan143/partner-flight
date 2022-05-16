@@ -26,9 +26,47 @@ import dateFormat from 'dateformat';
 import moment from 'moment';
 import { format } from 'date-fns';
 import BasicTimePicker from './../../BasicTimePicker/index';
+import yupResolver from '@hookform/resolvers';
+import * as yup from "yup";
+import profileApi from '../../Api/profileApi';
 
 function Add(props) {
+    const schema = yup.object({
+        FlightName: yup.string().required(),
+        AirlineID: yup.string().required(),
+        GateID: yup.string().required(),
+        EstimatedTime: yup.string().required(),
+        QuantityPT: yup.string().required(),
+        TicketPricePT: yup.string().required(),
+        QuantityPTDB: yup.string().required(),
+        TicketPricePTDB: yup.string().required(),
+        QuantityTG: yup.string().required(),
+        TicketPriceTG: yup.string().required(),
+        QuantityHN: yup.string().required(),
+        TicketPriceHN: yup.string().required(),
+        depaturePlace: yup.string().required(),
+        destination: yup.string().required(),
+        Departure: yup.date().required(),
+        TimeDeparture: yup.date().required(),
+        TimeArrival: yup.date().required(),
+    }).required();
+    // useEffect(() => {
+    //     const fetchFlights = async () => {
+    //         const param = {
+    //             "APP_ID": "VY04MB",
+    //         }
+    //         try {
+    //             const list = await profileApi.getAll(param);
+    //             console.log(list.data);
+    //         }
+    //         catch (error) {
+    //             console.log('Fail to fetch flight list', error);
+    //         }
+    //     }
+    //     fetchFlights();
+    // }, []);
     const [date, setDate] = useState(new Date());
+
     const form = useForm({
         defaultValues: {
             FlightName: "",
@@ -54,6 +92,7 @@ function Add(props) {
             TimeDeparture: new Date(),
             TimeArrival: new Date(),
         },
+        resolver: yupResolver(schema)
     });
 
     // const sendLocation = (departurePlace, destination) => {
@@ -61,7 +100,7 @@ function Add(props) {
     // }
 
     const onSubmit = (values) => {
-        console.log(values);
+
     }
     const depaturePlace = {
         SGN: "TP HCM, Việt Nam",
