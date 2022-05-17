@@ -33,7 +33,7 @@ function BasicDatePicker(props) {
             margin="normal"
             label={label}
             id="date-picker-dialog"
-            format="yyyy/MM/dd"
+            format="dd/MM/yyyy"
             KeyboardButtonProps={{
               "aria-label": "change date"
             }}

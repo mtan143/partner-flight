@@ -68,30 +68,31 @@ function Add(props) {
     // }, []);
     const [date, setDate] = useState(new Date());
 
-    const {control ,handleSubmit, formState:{errors}} = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             // FlightName: "",
-            AirlineID: "",
-            GateID: "",
+            airlineId: 2,
+            // AirlineID: "",
+            // GateID: "",
             // FlightStatus: "",
-            EstimatedTime: "",
+            // EstimatedTime: "",
             // SeatCodePT: "",
-            QuantityPT: "",
-            TicketPricePT: "",
+            // QuantityPT: "",
+            // TicketPricePT: "",
             // SeatCodePTDB: "",
-            QuantityPTDB: "",
-            TicketPricePTDB: "",
+            // QuantityPTDB: "",
+            // TicketPricePTDB: "",
             // SeatCodeTG: "",
-            QuantityTG: "",
-            TicketPriceTG: "",
+            // QuantityTG: "",
+            // TicketPriceTG: "",
             // SeatCodeHN: "",
-            QuantityHN: "",
-            TicketPriceHN: "",
-            DeparturePlace: "SGN",
-            Destination: "HAN",
-            Departure: new Date(),
-            TimeDeparture: new Date(),
-            TimeArrival: new Date(),
+            // QuantityHN: "",
+            // // TicketPriceHN: "",
+            // DeparturePlace: "TP HCM, Việt Nam",
+            // Destination: "Hà Nội, Việt Nam",
+            // Departure: new Date(),
+            // TimeDeparture: new Date(),
+            // TimeArrival: new Date(),
         },
     });
     console.log(errors);
@@ -104,25 +105,25 @@ function Add(props) {
         console.log(values);
     }
     const depaturePlace = {
-        SGN: "TP HCM, Việt Nam",
-        HAN: "Hà Nội, Việt Nam",
-        VII: "Vinh, Việt Nam",
-        PQC: "Phú Quốc, Việt Nam",
-        DLI: "Đà Lạt, Việt Nam",
-        DAD: "Đà Nẵng, Việt Nam",
-        HUI: "Huế, Việt Nam",
-        CXR: "Nha Trang, Việt Nam",
+        "TP HCM, Việt Nam": "TP HCM, Việt Nam",
+        "Hà Nội, Việt Nam": "Hà Nội, Việt Nam",
+        "Vinh, Việt Nam": "Vinh, Việt Nam",
+        "Phú Quốc, Việt Nam": "Phú Quốc, Việt Nam",
+        "Đà Lạt, Việt Nam": "Đà Lạt, Việt Nam",
+        "Đà Nẵng, Việt Nam": "Đà Nẵng, Việt Nam",
+        "Huế, Việt Nam": "Huế, Việt Nam",
+        "Nha Trang, Việt Nam": "Nha Trang, Việt Nam",
     }
 
     const destination = {
-        SGN: "TP HCM, Việt Nam",
-        HAN: "Hà Nội, Việt Nam",
-        VII: "Vinh, Việt Nam",
-        PQC: "Phú Quốc, Việt Nam",
-        DLI: "Đà Lạt, Việt Nam",
-        DAD: "Đà Nẵng, Việt Nam",
-        HUI: "Huế, Việt Nam",
-        CXR: "Nha Trang, Việt Nam",
+        "TP HCM, Việt Nam": "TP HCM, Việt Nam",
+        "Hà Nội, Việt Nam": "Hà Nội, Việt Nam",
+        "Vinh, Việt Nam": "Vinh, Việt Nam",
+        "Phú Quốc, Việt Nam": "Phú Quốc, Việt Nam",
+        "Đà Lạt, Việt Nam": "Đà Lạt, Việt Nam",
+        "Đà Nẵng, Việt Nam": "Đà Nẵng, Việt Nam",
+        "Huế, Việt Nam": "Huế, Việt Nam",
+        "Nha Trang, Việt Nam": "Nha Trang, Việt Nam",
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -145,22 +146,22 @@ function Add(props) {
                 autoComplete="off"
             >
                 {/* <InputField name="FlightCode" label="Mã chuyến bay" control={control} /> */}
-                <InputField name="FlightName" label="Tên chuyến bay" control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} />
-                <InputField name="AirlineID" label="ID hãng bay" control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} />
+                <InputField name="name" label="Tên chuyến bay" control={control} rules={{ required: "Chưa nhập tên chuyến bay bé ơi" }} />
+                <InputField name="airlineid" label="ID hãng bay" control={control} rules={{ required: "Chưa nhập tên chuyến bay bé ơi" }} />
                 {/* <InputField name="FlightStatus" label="Tình trạng chuyến bay" control={control} /> */}
-                <BasicDatePicker name='Departure' label='Thời gian khởi hành' control={control} />
+                <BasicDatePicker name='departure' label='Thời gian khởi hành' control={control} />
                 {/* <BasicSelect sendLocation = {sendLocation} /> */}
                 <FormControl fullWidth >
-                    <SelectField name='DeparturePlace' data={depaturePlace} label='Điểm đi' control={control} />
+                    <SelectField name='departurePlace' data={depaturePlace} label='Điểm đi' control={control} />
                 </FormControl>
 
                 <FormControl fullWidth>
-                    <SelectField name='Destination' data={destination} label='Điểm đến' control={control} />
+                    <SelectField name='destination' data={destination} label='Điểm đến' control={control} />
                 </FormControl>
-                <InputField name="EstimatedTime" label="Thời gian ước tính" control={control}  rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/>
-                <InputField name="GateID" label="ID Cổng vào" control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/>
-                <BasicTimePicker name='TimeDeparture' label="Thời gian cất cánh" control={control} />
-                <BasicTimePicker name='TimeArrival' label="Thời gian hạ cánh" control={control} />
+                <InputField name="time" label="Thời gian ước tính" control={control} rules={{ required: "Chưa nhập thời gian", pattern: { value: /^[0-9]+$/i, message: "nhập số thôi bé ơi" } }} />
+                <InputField name="gateId" label="ID Cổng vào" control={control} rules={{ required: "Chưa nhập cổng vào" }} />
+                <BasicTimePicker name='timeDeparture' label="Thời gian cất cánh" control={control} />
+                <BasicTimePicker name='timeArrival' label="Thời gian hạ cánh" control={control} />
             </Box>
             <h2 style={{ color: '#1BA0E2', marginTop: '50px' }}>Hạng ghế</h2>
             <div className='text' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -168,8 +169,8 @@ function Add(props) {
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Phổ thông</p>
                         {/* <InputField name='SeatCodePT' label='Mã hạng ghế' control={control} /><br /> */}
-                        <InputField name='QuantityPT' label='Số lượng' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/><br />
-                        <InputField name='TicketPricePT' label='Giá vé' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/>
+                        <InputField name='ptQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng" }} /><br />
+                        <InputField name='ptPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
                     </Grid>
 
                 </div>
@@ -177,24 +178,24 @@ function Add(props) {
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Phổ thông đặc biệt</p>
                         {/* <InputField name='SeatCodePTDB' label='Mã hạng ghế' control={control} /><br /> */}
-                        <InputField name='QuantityPTDB' label='Số lượng' control={control}rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} /><br />
-                        <InputField name='TicketPricePTDB' label='Giá vé' control={control}rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} />
+                        <InputField name='pt_dbQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng" }} /><br />
+                        <InputField name='pt_dbPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
                     </Grid>
                 </div>
                 <div>
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Thương gia</p>
                         {/* <InputField name='SeatCodeTG' label='Mã hạng ghế' control={control} /><br /> */}
-                        <InputField name='QuantityTG' label='Số lượng' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} /><br />
-                        <InputField name='TicketPriceTG' label='Giá vé' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} />
+                        <InputField name='tgQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng" }} /><br />
+                        <InputField name='tgPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
                     </Grid>
                 </div>
                 <div>
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Hạng nhất</p>
                         {/* <InputField name='SeatCodeHN' label='Mã hạng ghế' control={control} /><br /> */}
-                        <InputField name='QuantityHN' label='Số lượng' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/><br />
-                        <InputField name='TicketPriceHN' label='Giá vé' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/>
+                        <InputField name='hnQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng" }} /><br />
+                        <InputField name='hnPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
                     </Grid>
                 </div>
             </div>
