@@ -29,27 +29,28 @@ import BasicTimePicker from './../../BasicTimePicker/index';
 import yupResolver from '@hookform/resolvers';
 import * as yup from "yup";
 import profileApi from '../../Api/profileApi';
+import { alpha } from '@material-ui/core/styles'
 
 function Add(props) {
-    const schema = yup.object({
-        FlightName: yup.string().required(),
-        AirlineID: yup.string().required(),
-        GateID: yup.string().required(),
-        EstimatedTime: yup.string().required(),
-        QuantityPT: yup.string().required(),
-        TicketPricePT: yup.string().required(),
-        QuantityPTDB: yup.string().required(),
-        TicketPricePTDB: yup.string().required(),
-        QuantityTG: yup.string().required(),
-        TicketPriceTG: yup.string().required(),
-        QuantityHN: yup.string().required(),
-        TicketPriceHN: yup.string().required(),
-        depaturePlace: yup.string().required(),
-        destination: yup.string().required(),
-        Departure: yup.date().required(),
-        TimeDeparture: yup.date().required(),
-        TimeArrival: yup.date().required(),
-    }).required();
+    // const schema = yup.object({
+    //     FlightName: yup.string().required('loz'),
+    //     // AirlineID: yup.string().required(),
+    //     // GateID: yup.string().required(),
+    //     // EstimatedTime: yup.string().required(),
+    //     // QuantityPT: yup.string().required(),
+    //     // TicketPricePT: yup.string().required(),
+    //     // QuantityPTDB: yup.string().required(),
+    //     // TicketPricePTDB: yup.string().required(),
+    //     // QuantityTG: yup.string().required(),
+    //     // TicketPriceTG: yup.string().required(),
+    //     // QuantityHN: yup.string().required(),
+    //     // TicketPriceHN: yup.string().required(),
+    //     // depaturePlace: yup.string().required(),
+    //     // destination: yup.string().required(),
+    //     // Departure: yup.date().required(),
+    //     // TimeDeparture: yup.date().required(),
+    //     // TimeArrival: yup.date().required(),
+    // });
     // useEffect(() => {
     //     const fetchFlights = async () => {
     //         const param = {
@@ -67,9 +68,9 @@ function Add(props) {
     // }, []);
     const [date, setDate] = useState(new Date());
 
-    const form = useForm({
+    const {control ,handleSubmit, formState:{errors}} = useForm({
         defaultValues: {
-            FlightName: "",
+            // FlightName: "",
             AirlineID: "",
             GateID: "",
             // FlightStatus: "",
@@ -92,15 +93,15 @@ function Add(props) {
             TimeDeparture: new Date(),
             TimeArrival: new Date(),
         },
-        resolver: yupResolver(schema)
     });
+    console.log(errors);
 
     // const sendLocation = (departurePlace, destination) => {
     //     console.log(departurePlace, destination);
     // }
 
     const onSubmit = (values) => {
-
+        console.log(values);
     }
     const depaturePlace = {
         SGN: "TP HCM, Việt Nam",
@@ -124,7 +125,7 @@ function Add(props) {
         CXR: "Nha Trang, Việt Nam",
     }
     return (
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <h2 style={{ color: '#1BA0E2' }}>Add Flight</h2>
             <Stack className='Button' spacing={2} direction="row">
                 <Button type="submit" variant="contained" style={{ backgroundColor: '#FF6F00' }}>Add</Button>
@@ -143,57 +144,57 @@ function Add(props) {
                 noValidate
                 autoComplete="off"
             >
-                {/* <InputField name="FlightCode" label="Mã chuyến bay" form={form} /> */}
-                <InputField name="FlightName" label="Tên chuyến bay" form={form} />
-                <InputField name="AirlineID" label="ID hãng bay" form={form} />
-                {/* <InputField name="FlightStatus" label="Tình trạng chuyến bay" form={form} /> */}
-                <BasicDatePicker name='Departure' label='Thời gian khởi hành' form={form} />
+                {/* <InputField name="FlightCode" label="Mã chuyến bay" control={control} /> */}
+                <InputField name="FlightName" label="Tên chuyến bay" control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} />
+                <InputField name="AirlineID" label="ID hãng bay" control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} />
+                {/* <InputField name="FlightStatus" label="Tình trạng chuyến bay" control={control} /> */}
+                <BasicDatePicker name='Departure' label='Thời gian khởi hành' control={control} />
                 {/* <BasicSelect sendLocation = {sendLocation} /> */}
                 <FormControl fullWidth >
-                    <SelectField name='DeparturePlace' data={depaturePlace} label='Điểm đi' form={form} />
+                    <SelectField name='DeparturePlace' data={depaturePlace} label='Điểm đi' control={control} />
                 </FormControl>
 
                 <FormControl fullWidth>
-                    <SelectField name='Destination' data={destination} label='Điểm đến' form={form} />
+                    <SelectField name='Destination' data={destination} label='Điểm đến' control={control} />
                 </FormControl>
-                <InputField name="EstimatedTime" label="Thời gian ước tính" form={form} />
-                <InputField name="GateID" label="ID Cổng vào" form={form} />
-                <BasicTimePicker name='TimeDeparture' label="Thời gian cất cánh" form={form} />
-                <BasicTimePicker name='TimeArrival' label="Thời gian hạ cánh" form={form} />
+                <InputField name="EstimatedTime" label="Thời gian ước tính" control={control}  rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/>
+                <InputField name="GateID" label="ID Cổng vào" control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/>
+                <BasicTimePicker name='TimeDeparture' label="Thời gian cất cánh" control={control} />
+                <BasicTimePicker name='TimeArrival' label="Thời gian hạ cánh" control={control} />
             </Box>
             <h2 style={{ color: '#1BA0E2', marginTop: '50px' }}>Hạng ghế</h2>
             <div className='text' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                 <div>
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Phổ thông</p>
-                        {/* <InputField name='SeatCodePT' label='Mã hạng ghế' form={form} /><br /> */}
-                        <InputField name='QuantityPT' label='Số lượng' form={form} /><br />
-                        <InputField name='TicketPricePT' label='Giá vé' form={form} />
+                        {/* <InputField name='SeatCodePT' label='Mã hạng ghế' control={control} /><br /> */}
+                        <InputField name='QuantityPT' label='Số lượng' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/><br />
+                        <InputField name='TicketPricePT' label='Giá vé' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/>
                     </Grid>
 
                 </div>
                 <div>
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Phổ thông đặc biệt</p>
-                        {/* <InputField name='SeatCodePTDB' label='Mã hạng ghế' form={form} /><br /> */}
-                        <InputField name='QuantityPTDB' label='Số lượng' form={form} /><br />
-                        <InputField name='TicketPricePTDB' label='Giá vé' form={form} />
+                        {/* <InputField name='SeatCodePTDB' label='Mã hạng ghế' control={control} /><br /> */}
+                        <InputField name='QuantityPTDB' label='Số lượng' control={control}rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} /><br />
+                        <InputField name='TicketPricePTDB' label='Giá vé' control={control}rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} />
                     </Grid>
                 </div>
                 <div>
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Thương gia</p>
-                        {/* <InputField name='SeatCodeTG' label='Mã hạng ghế' form={form} /><br /> */}
-                        <InputField name='QuantityTG' label='Số lượng' form={form} /><br />
-                        <InputField name='TicketPriceTG' label='Giá vé' form={form} />
+                        {/* <InputField name='SeatCodeTG' label='Mã hạng ghế' control={control} /><br /> */}
+                        <InputField name='QuantityTG' label='Số lượng' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} /><br />
+                        <InputField name='TicketPriceTG' label='Giá vé' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}} />
                     </Grid>
                 </div>
                 <div>
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Hạng nhất</p>
-                        {/* <InputField name='SeatCodeHN' label='Mã hạng ghế' form={form} /><br /> */}
-                        <InputField name='QuantityHN' label='Số lượng' form={form} /><br />
-                        <InputField name='TicketPriceHN' label='Giá vé' form={form} />
+                        {/* <InputField name='SeatCodeHN' label='Mã hạng ghế' control={control} /><br /> */}
+                        <InputField name='QuantityHN' label='Số lượng' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/><br />
+                        <InputField name='TicketPriceHN' label='Giá vé' control={control} rules={{required: "Chưa nhập tên chuyến bay bé ơi"}}/>
                     </Grid>
                 </div>
             </div>

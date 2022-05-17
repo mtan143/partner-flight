@@ -5,23 +5,30 @@ import TextField from '@mui/material/TextField';
 import { InputLabel } from '@mui/material/InputLabel';
 
 InputField.propTypes = {
-    form: PropTypes.object.isRequired,
+    control: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     label: PropTypes.string,
+    rules: PropTypes.object,
 };
 
 function InputField(props) {
-    const { form, name, label } = props;
+    const { control, name, label, rules} = props;
     return (
         <Controller
+            rules={rules}
             name={name}
-            control={form.control}
+            control={control}
             label={label}
-            render={({ field }) => <TextField {...field} label={label} />}
+            render={({ field,fieldState:{error} }) => (
+            <TextField 
+                error = {error}
+                helperText={error?.message}
+            {...field} label={label} 
+            />)}
+           
             fullWidth
             margin="normal"
             variant="outlined"
-
         />
     );
 }

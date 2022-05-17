@@ -9,20 +9,20 @@ import moment from 'moment';
 import dateFormat from 'dateformat';
 
 BasicDatePicker.propTypes = {
-  form: PropTypes.object.isRequired,
+  control: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   lable: PropTypes.string,
   data: PropTypes.object.isRequired,
 };
 
 function BasicDatePicker(props) {
-  const { form, name, label, } = props;
+  const { control, name, label, } = props;
 
   return (
     <MuiPickersUtilsProvider libInstance={moment} utils={DateFnsUtils}>
       <Controller
         name={name}
-        control={form.control}
+        control={control}
         defaultValue={new Date()}
 
         render={({ field: { ref, ...rest } }) => (

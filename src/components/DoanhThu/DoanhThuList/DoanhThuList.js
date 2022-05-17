@@ -36,7 +36,7 @@ function Row(props) {
     const t = (List) => {
         let total=0;
         for(var i = 0 ;i < 4; i++){ 
-            total += (List[i].quantity - List[i].remainingQuantity);
+            total += (List[i]?.quantity - List[i]?.remainingQuantity);
         };
         return total;
     };
@@ -46,7 +46,7 @@ function Row(props) {
     const tMoney = (List) => {
         let total=0;
         for(var i = 0 ;i < 4; i++){ 
-            total += (List[i].price*(List[i].quantity - List[i].remainingQuantity));
+            total += (List[i]?.price*(List[i]?.quantity - List[i]?.remainingQuantity));
         };
         return total;
     }

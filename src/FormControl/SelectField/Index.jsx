@@ -6,18 +6,18 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
 SelectField.propTypes = {
-    form: PropTypes.object.isRequired,
+    control: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     label: PropTypes.string,
     data: PropTypes.object.isRequired,
 };
 
 function SelectField(props) {
-    const { form, name, label, data } = props;
+    const { control, name, label, data } = props;
     return (
         <Controller
             name={name}
-            control={form.control}
+            control={control}
             label={label}
             render={({ field }) => (
                 <FormControl>

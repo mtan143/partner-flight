@@ -10,20 +10,20 @@ import dateFormat from 'dateformat';
 import TimePicker from 'react-multi-date-picker/plugins/time_picker';
 
 BasicTimePicker.propTypes = {
-    form: PropTypes.object.isRequired,
+    control: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     lable: PropTypes.string,
     data: PropTypes.object.isRequired,
 };
 
 function BasicTimePicker(props) {
-    const { form, name, label, } = props;
+    const { control, name, label, } = props;
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
                 name={name}
-                control={form.control}
+                control={control}
                 defaultValue={new Date()}
                 render={({ field: { ref, ...rest } }) => (
                     <KeyboardTimePicker
