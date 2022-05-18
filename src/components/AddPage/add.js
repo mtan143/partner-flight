@@ -28,7 +28,7 @@ import { format } from 'date-fns';
 import BasicTimePicker from './../../BasicTimePicker/index';
 import yupResolver from '@hookform/resolvers';
 import * as yup from "yup";
-import profileApi from '../../Api/profileApi';
+import flightApi from '../../Api/flightApi';
 import { alpha } from '@material-ui/core/styles'
 
 function Add(props) {
@@ -72,6 +72,10 @@ function Add(props) {
         defaultValues: {
             // FlightName: "",
             airlineId: 2,
+            hnPrice:300000,
+            tgPrice:300000,
+            ptPrice:300000,
+            pt_dbPrice:300000,
             // AirlineID: "",
             // GateID: "",
             // FlightStatus: "",
@@ -101,8 +105,20 @@ function Add(props) {
     //     console.log(departurePlace, destination);
     // }
 
-    const onSubmit = (values) => {
-        console.log(values);
+    const onSubmit = async (values) => {
+        const newValues = JSON.stringify( {
+            ...values,
+            timeArrival: moment(values.timeArrival).format("HH:MM"),
+            timeDeparture:  moment(values.timeDeparture).format("HH:MM"),
+            departure:  moment(values.timeArrival).format("YYYY-MM-DD")
+        })
+        console.log(newValues);
+        try{
+            await flightApi.add(newValues);
+        }
+        catch{
+            console.log("lồi rồi ", errors);
+        }
     }
     const depaturePlace = {
         "TP HCM, Việt Nam": "TP HCM, Việt Nam",
@@ -140,17 +156,14 @@ function Add(props) {
             <Box
                 component="form"
                 sx={{
-                    '& > :not(style)': { m: 1, width: '50ch', marginTop: '50px' },
+                    '& > :not(style)': { m: 1, width: '40ch', marginTop: '50px' },
                 }}
                 noValidate
                 autoComplete="off"
             >
-                {/* <InputField name="FlightCode" label="Mã chuyến bay" control={control} /> */}
                 <InputField name="name" label="Tên chuyến bay" control={control} rules={{ required: "Chưa nhập tên chuyến bay bé ơi" }} />
-                <InputField name="airlineid" label="ID hãng bay" control={control} rules={{ required: "Chưa nhập tên chuyến bay bé ơi" }} />
-                {/* <InputField name="FlightStatus" label="Tình trạng chuyến bay" control={control} /> */}
-                <BasicDatePicker name='departure' label='Thời gian khởi hành' control={control} />
-                {/* <BasicSelect sendLocation = {sendLocation} /> */}
+            
+                <BasicDatePicker name='departure' label='Ngày khởi hành' control={control} />
                 <FormControl fullWidth >
                     <SelectField name='departurePlace' data={depaturePlace} label='Điểm đi' control={control} />
                 </FormControl>
@@ -164,7 +177,7 @@ function Add(props) {
                 <BasicTimePicker name='timeArrival' label="Thời gian hạ cánh" control={control} />
             </Box>
             <h2 style={{ color: '#1BA0E2', marginTop: '50px' }}>Hạng ghế</h2>
-            <div className='text' style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <div className='text' style={{ display: 'flex', justifyContent: 'space-evenly' , marginBottom: 20}}>
                 <div>
                     <Grid container direction={"column"} spacing={3}>
                         <p style={{ fontSize: '20px' }}>Phổ thông</p>

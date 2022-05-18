@@ -66,10 +66,10 @@ function Row(props) {
                 <TableCell style={{ textAlign: "center" }}>{row.timeDeparture}-{row.timeArrival}</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{t(row.classTypeList)}</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{row.quantityTicket}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>{formatVnd(tMoney(row.classTypeList),"VNĐ")}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>{formatVnd(tMoney(row.classTypeList)," VNĐ")}</TableCell>
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0, color: 'red', backgroundColor: '#E8EAF6' }} colSpan={12}>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0, color: '#FF6F00', backgroundColor: '#E8EAF6' }} colSpan={12}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box margin={1}>
                             <Typography variant="h6" gutterBottom component="div">
@@ -107,11 +107,11 @@ function Row(props) {
                                             </TableCell>
                                             <TableCell style={{ textAlign: 'center' }}>{flightDetailRow.quantity}</TableCell>
                                             <TableCell style={{ textAlign: 'center' }}>{(flightDetailRow.quantity - flightDetailRow.remainingQuantity)}</TableCell>
-                                            <TableCell style={{ textAlign: 'center' }}>{formatVnd(flightDetailRow.price ,"VNĐ")}</TableCell>
-                                            <TableCell style={{ textAlign: 'center' }}>{formatVnd((flightDetailRow.price  * flightDetailRow.quantity),"VNĐ")}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{formatVnd(flightDetailRow.price ," VNĐ")}</TableCell>
+                                            <TableCell style={{ textAlign: 'center' }}>{formatVnd((flightDetailRow.price  * flightDetailRow.quantity)," VNĐ")}</TableCell>
                                             <TableCell style={{ textAlign: 'center' }}>
                                                 {/* {Math.round(flightDetailRow.amount * row.price * 100) / 100} */}
-                                                {formatVnd(flightDetailRow.price *(flightDetailRow.quantity - flightDetailRow.remainingQuantity),"VNĐ")}
+                                                {formatVnd(flightDetailRow.price *(flightDetailRow.quantity - flightDetailRow.remainingQuantity)," VNĐ")}
                                             </TableCell>
                                         </TableRow>
                                     ))}

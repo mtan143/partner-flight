@@ -27,6 +27,7 @@ function BasicDatePicker(props) {
 
         render={({ field: { ref, ...rest } }) => (
           <KeyboardDatePicker
+            disablePast={true}
             autoOk={true}
             variant="inline"
             inputVariant="outlined"

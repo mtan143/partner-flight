@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import './DoanhThu.css'
 import DoanhThuList from './DoanhThuList/DoanhThuList';
 import axios from 'axios';
+import Button from '@mui/material/Button';
 
 DoanhThu.propTypes = {
 
@@ -38,6 +39,7 @@ function DoanhThu(props) {
                 </Select>
             </FormControl>
             <TextField className='TextBox' style={{ marginLeft: 10 }} id="outlined-basic" label="Giá trị" variant="outlined" />
+            <Button type="submit" variant="contained" style={{ backgroundColor: '#FF6F00' , marginLeft: '10px', padding: '15px 20px'}}>Search</Button>
             <DoanhThuList />
         </>
     );

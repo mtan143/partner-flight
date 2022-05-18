@@ -26,7 +26,7 @@ function SelectField(props) {
                         {
 
                             Object.entries(data).map(([key, value], i) =>
-                                <MenuItem key={i} value={key}>{value}</MenuItem>)
+                                <MenuItem style={{padding:5,display:"block"}} key={i} value={key}>{value}</MenuItem>)
                         }
                     </Select>
                 </FormControl>
