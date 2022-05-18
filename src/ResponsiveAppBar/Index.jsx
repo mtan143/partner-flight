@@ -40,6 +40,11 @@ function Index(props) {
                                 Thống kê doanh thu
                             </Link>
                         </Button>
+                        <Button color="inherit" style={{ marginLeft: '10px' }}>
+                            <Link to='/thongke' className='link' style={{ textDecoration: 'none' }} >
+                                Chart Thống kê
+                            </Link>
+                        </Button>
                     </Typography>
                     <Button style={{ color: "white" }}>Logout</Button>
                 </Toolbar>

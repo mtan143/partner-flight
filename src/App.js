@@ -8,6 +8,7 @@ import { Component } from 'react';
 import AddPage from './components/AddPage/add';
 import ListPage from './components/ListPage/list';
 import DoanhThu from './components/DoanhThu/DoanhThu';
+import Statistics from './components/Statistics';
 // import Footer from './Footer/Index';
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/add" element={<AddPage />} />
         <Route exact path="/list" element={<ListPage />} />
         <Route exact path="/doanhthu" element={<DoanhThu />} />
+        <Route exact path="/thongke" element={<Statistics />} />
       </Routes>
 
       {/* <img src={travelokabar} alt='ảnh lỗi' style={{ height: '100px', width: '100%' }} /> */}
