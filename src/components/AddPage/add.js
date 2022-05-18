@@ -110,7 +110,7 @@ function Add(props) {
             <h2 style={{ color: '#1BA0E2' }}>Add Flight</h2>
             <Stack className='Button' spacing={2} direction="row">
                 <Button type="submit" variant="contained" style={{ backgroundColor: '#FF6F00' }}>Add</Button>
-                <Link to='/list' className='link' style={{ textDecoration: 'none' }} >
+                <Link to='/doanhthu' className='link' style={{ textDecoration: 'none' }} >
                     <Button variant="contained" style={{ backgroundColor: '#1BA0E2' }}>
                         Back
                     </Button>

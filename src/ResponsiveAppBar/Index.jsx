@@ -25,19 +25,9 @@ function Index(props) {
                                 Airline Management
                             </Link>
                         </Button>
-                        <Button color="inherit" style={{ marginLeft: '50px' }}>
-                            <Link to='/list' className='link' style={{ textDecoration: 'none' }} >
-                                Flight List
-                            </Link>
-                        </Button>
-                        <Button color="inherit" style={{ marginLeft: '10px' }}>
-                            <Link to='/add' className='link' style={{ textDecoration: 'none' }} >
-                                Add Flight
-                            </Link>
-                        </Button>
                         <Button color="inherit" style={{ marginLeft: '10px' }}>
                             <Link to='/doanhthu' className='link' style={{ textDecoration: 'none' }} >
-                                Thống kê doanh thu
+                                Quản lý chuyến bay
                             </Link>
                         </Button>
                         <Button color="inherit" style={{ marginLeft: '10px' }}>

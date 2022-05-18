@@ -15,10 +15,15 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Container from '@material-ui/core/Container';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import './style.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import flightApi from '../../../Api/flightApi';
+import { Archive } from '@material-ui/icons';
 
 const useRowStyles = makeStyles({
     root: {
@@ -32,6 +37,7 @@ const useRowStyles = makeStyles({
 function Row(props) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
+    const [status, setStatus] = useState(row.flightStatus);
     const classes = useRowStyles();
     const t = (List) => {
         let total=0;
@@ -67,6 +73,42 @@ function Row(props) {
                 <TableCell style={{ textAlign: "center" }}>{t(row.classTypeList)}</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{row.quantityTicket}</TableCell>
                 <TableCell style={{ textAlign: "center" }}>{formatVnd(tMoney(row.classTypeList)," VNĐ")}</TableCell>
+                <TableCell style={{ textAlign: 'center' }}>
+                <Box sx={{ minWidth: 120 }}>
+                                            <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Status</InputLabel>
+
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Status"
+          value={status}
+          onChange={ async (event) =>{
+            setStatus(event.target.value);
+            const data = JSON.stringify( {
+                flightCode: row.flightCode,
+                flightStatus: event.target.value,
+            })
+            {
+                try{
+                    await flightApi.updateStatus(data);
+                }
+                catch{
+                    console.log("lỗi rồi bạn ơi!!!");
+                }
+            }
+        }}
+        >
+          <MenuItem value="Khoi_Tao">Khởi tạo</MenuItem>
+          <MenuItem value="Ha_Canh">Hạ cánh</MenuItem>
+          <MenuItem value="Cat_Canh">Cất cánh</MenuItem>
+          <MenuItem value="Huy">Hủy</MenuItem>
+          <MenuItem value="Delay">Delay</MenuItem>
+          <MenuItem value="Archive">Archive</MenuItem>
+        </Select>
+      </FormControl>
+      </Box>
+                                            </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0, color: '#FF6F00', backgroundColor: '#E8EAF6' }} colSpan={12}>
@@ -96,6 +138,7 @@ function Row(props) {
                                         <TableCell style={{ fontSize: '17px', textAlign: 'center', color: '#01579B' }}>
                                             Tổng tiền bán được
                                         </TableCell>
+                                        <TableCell style={{ fontSize: '17px', textAlign: 'center', color: '#01579B' }}></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -125,23 +168,24 @@ function Row(props) {
     );
 }
 Row.propTypes = {
-    row: PropTypes.shape({
-        flightCode: PropTypes.string.isRequired,
-        flightName: PropTypes.string.isRequired,
-        departure: PropTypes.string.isRequired,
-        history: PropTypes.arrayOf(
-            PropTypes.shape({
-                amount: PropTypes.number.isRequired,
-                customerId: PropTypes.string.isRequired,
-                date: PropTypes.string.isRequired,
-            }),
-        ).isRequired,
-        time: PropTypes.string.isRequired,
-        capital: PropTypes.number.isRequired,
-        totalPrice: PropTypes.string.isRequired,
-        totalTicket: PropTypes.number.isRequired,
-        totalPriceTicket: PropTypes.string.isRequired,
-    }).isRequired,
+    // row: PropTypes.shape({
+    //     flightCode: PropTypes.string.isRequired,
+    //     name: PropTypes.string.isRequired,
+    //     departure: PropTypes.string.isRequired,
+    //     classTypeList: PropTypes.arrayOf(
+    //         PropTypes.shape({
+
+    //             price: PropTypes.number.isRequired,
+    //             customerId: PropTypes.string.isRequired,
+    //             date: PropTypes.string.isRequired,
+    //         }),
+    //     ).isRequired,
+    //     time: PropTypes.string.isRequired,
+    //     capital: PropTypes.number.isRequired,
+    //     totalPrice: PropTypes.string.isRequired,
+    //     totalTicket: PropTypes.number.isRequired,
+    //     totalPriceTicket: PropTypes.string.isRequired,
+    // }).isRequired,
 };
 export default function CollapsibleTable() {
 

@@ -10,6 +10,7 @@ import './DoanhThu.css'
 import DoanhThuList from './DoanhThuList/DoanhThuList';
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 DoanhThu.propTypes = {
 
@@ -23,23 +24,10 @@ function DoanhThu(props) {
 
     return (
         <>
-            <h2 style={{ color: '#1BA0E2' }}>Thống kê doanh thu</h2>
-            <FormControl style={{ width: 150 }}>
-                <InputLabel id="demo-simple-select-label">Thống kê</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={doanhThu}
-                    label="Thống kê"
-                    onChange={handleChangeThu}
-                >
-                    <MenuItem value={1}>Theo ngày</MenuItem>
-                    <MenuItem value={2}>Theo tháng</MenuItem>
-                    <MenuItem value={3}>Theo năm</MenuItem>
-                </Select>
-            </FormControl>
-            <TextField className='TextBox' style={{ marginLeft: 10 }} id="outlined-basic" label="Giá trị" variant="outlined" />
-            <Button type="submit" variant="contained" style={{ backgroundColor: '#FF6F00' , marginLeft: '10px', padding: '15px 20px'}}>Search</Button>
+            <h2 style={{ color: '#1BA0E2' }}>Quản lý chuyến bay</h2>
+            <Button type="submit" variant="contained" style={{float:"left", backgroundColor: '#FF6F00' , marginLeft: '10px', padding: '15px 20px'}}><Link to='/add' className='link' style={{ textDecoration: 'none' }} >
+                                +
+                            </Link></Button>
             <DoanhThuList />
         </>
     );

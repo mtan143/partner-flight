@@ -6,7 +6,6 @@ import ResponsiveAppBar from './ResponsiveAppBar/Index';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Component } from 'react';
 import AddPage from './components/AddPage/add';
-import ListPage from './components/ListPage/list';
 import DoanhThu from './components/DoanhThu/DoanhThu';
 import Statistics from './components/Statistics';
 // import Footer from './Footer/Index';
@@ -19,9 +18,8 @@ function App() {
       <h2 style={{ fontWeight: '500', textAlign: 'center' }}>MANAGEMENT PAGE</h2>
 
       <Routes>
-        <Route exact path='/' element={<ListPage />} />
+        <Route exact path='/' element={<DoanhThu />} />
         <Route exact path="/add" element={<AddPage />} />
-        <Route exact path="/list" element={<ListPage />} />
         <Route exact path="/doanhthu" element={<DoanhThu />} />
         <Route exact path="/thongke" element={<Statistics />} />
       </Routes>
