@@ -1,6 +1,5 @@
 export const DoanhThuData = [
     {
-
         year: '2019',
         totalPrice: 30000000000
     },

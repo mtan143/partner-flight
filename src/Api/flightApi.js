@@ -12,10 +12,6 @@ const flightApi = {
     updateStatus(data) {
         const url = '/customers/flights/status'
         return axiosClient.post(url, data);
-    },
-    getAllStatisticYear(id) {
-        const url = `/customers/flights/airline/statistic/${id}`;
-        return axiosClient.get(url);
     }
 }
 export default flightApi;
