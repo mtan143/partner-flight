@@ -18,7 +18,6 @@ BasicTimePicker.propTypes = {
 
 function BasicTimePicker(props) {
     const { control, name, label, } = props;
-
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
@@ -32,7 +31,6 @@ function BasicTimePicker(props) {
                         // placeholder="08:00 AM"
                         // mask="__:__ _M"
                         format="HH:mm a"
-
                         inputVariant="outlined"
                         margin="normal"
                         label={label}
