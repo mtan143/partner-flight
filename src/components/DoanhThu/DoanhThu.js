@@ -25,9 +25,9 @@ function DoanhThu(props) {
     return (
         <>
             <h2 style={{ color: '#1BA0E2' }}>Quản lý chuyến bay</h2>
-            <Button type="submit" variant="contained" style={{float:"left", backgroundColor: '#FF6F00' , marginLeft: '10px', padding: '15px 20px'}}><Link to='/add' className='link' style={{ textDecoration: 'none' }} >
-                                +
-                            </Link></Button>
+            <Link to='/add' className='link' style={{ textDecoration: 'none' }} >
+                <Button type="submit" variant="contained" style={{float:"left", backgroundColor: '#FF6F00' , marginLeft: '10px', padding: '15px 20px'}}>
+                                +</Button></Link>
             <DoanhThuList />
         </>
     );
