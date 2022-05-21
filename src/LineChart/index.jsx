@@ -1,14 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Line } from 'react-chartjs-2'
-import { Chart as ChartJS } from 'chart.js/auto'
+// import React from 'react';
+// import PropTypes from 'prop-types';
+// import {
+//     LineChart,
+//     ResponsiveContainer,
+//     Legend, Tooltip,
+//     Line,
+//     XAxis,
+//     YAxis,
+//     CartesianGrid
+// } from 'recharts';
+// index.propTypes = {
+    
+// };
 
-LineChart.propTypes = {
+// function index(props) {
+//     return (
+//         <>
+//             <h1 className="text-heading">
+//                 Line Chart Using Rechart
+//             </h1>
+//             <ResponsiveContainer width="100%" aspect={3}>
+//                 <LineChart data={props} margin={{ right: 300 }}>
+//                     <CartesianGrid />
+//                     <XAxis dataKey="totalPrice" 
+//                         interval={'preserveStartEnd'} />
+//                     <YAxis></YAxis>
+//                     <Legend />
+//                     <Tooltip />
+//                     <Line dataKey="year"
+//                         stroke="black" activeDot={{ r: 8 }} />
+//                 </LineChart>
+//             </ResponsiveContainer>
+//         </>
+//     );
+// }
 
-};
-
-function LineChart({ chartData }) {
-    return <Line data={chartData} />;
-}
-
-export default LineChart;
+// export default index;
