@@ -16,6 +16,7 @@ import {
     YAxis,
     CartesianGrid
 } from 'recharts';
+import { display, padding } from '@mui/system';
 
 Statistics.propTypes = {
 
@@ -26,7 +27,11 @@ function Statistics() {
     const [listData, setListData] = useState([]);
     const [monthData,setMonthData] = useState([]);
     const [classTypeData,setClassTypeData] = useState([]);
+    const [filterMonth, setFilterMonth] = useState(monthData);
     const [filter,setFilter] = useState(yearData);
+    function formatVnd(n) {
+      return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    };
     useEffect(() => {
         const flightChart = async () => {
             const yearStatistic = await flightApi.getAllStatisticYear("AL978AWBCDVJ");
@@ -44,7 +49,7 @@ function Statistics() {
     return (
             <>
             <h2 style={{ color: '#1BA0E2' }}>Biểu đồ doanh thu chuyến bay</h2>
-            <Box sx={{ width: 200,margin:"auto" }}>
+            <Box sx={{ width: 400,margin:"auto", display:"flex" ,paddingBottom:20}}>
                                             <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Statistic</InputLabel>
 
@@ -60,8 +65,25 @@ function Statistics() {
           }     
         >
           <MenuItem value={yearData}>Year</MenuItem>
-          <MenuItem value={monthData}>Month</MenuItem>
+          <MenuItem value={filterMonth}>Month</MenuItem>
           <MenuItem value={classTypeData}>ClassType</MenuItem>
+        </Select>
+      </FormControl>
+      
+                                            <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Chọn năm</InputLabel>
+
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="chọn năm"
+          onChange={(event)=> {
+            setFilterMonth(monthData.filter(data => data.year.substring(0,4)== event.target.value))
+          }}
+        >
+        {yearData.map((value) =>
+                                 <MenuItem style={{padding:5,display:"block"}} key={value.year} value={value.year}>{value.year}</MenuItem>) 
+        }
         </Select>
       </FormControl>
       </Box>
