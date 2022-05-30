@@ -24,6 +24,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import flightApi from '../../../Api/flightApi';
 import { Archive } from '@material-ui/icons';
+import jwtDecode from 'jwt-decode';
 
 const useRowStyles = makeStyles({
     root: {
@@ -187,23 +188,9 @@ Row.propTypes = {
     //     totalPriceTicket: PropTypes.string.isRequired,
     // }).isRequired,
 };
-export default function CollapsibleTable() {
+export default function CollapsibleTable({list}) {
 
-    useEffect(() => {
-        const fetchFlights = async () =>{ 
-            try{
-                const flightList = await flightApi.getAll("AL978AWBCDVJ");
-                console.log(flightList.data);
-                setList(flightList.data); 
-             }
-             catch (error){
-                    console.log('Fail to fetch flight list', error);
-             }
-        }
-        fetchFlights();
-    },[]);
-    const [list, setList] = useState([]);
-    
+   
     return (
 
         <TableContainer component={Paper} style={{ marginTop: '40px', }}>

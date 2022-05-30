@@ -14,14 +14,18 @@ Index.propTypes = {
 
 };
 
+
 function Index(props) {
+    const handleOnClick = () => {
+        localStorage.removeItem("id");
+    }
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" style={{ backgroundColor: '#1BA0E2' }}>
                 <Toolbar>
                     <Typography style={{ textAlign: 'left' }} variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         <Button color="inherit">
-                            <Link to='/' className='link' style={{ textDecoration: 'none', fontSize: '20px' }} >
+                            <Link to='/doanhthu' className='link' style={{ textDecoration: 'none', fontSize: '20px' }} >
                                 Airline Management
                             </Link>
                         </Button>
@@ -36,7 +40,9 @@ function Index(props) {
                             </Link>
                         </Button>
                     </Typography>
-                    <Button style={{ color: "white" }}>Logout</Button>
+                    <Button onClick={handleOnClick}  style={{ color: "white" }}> <Link to='/login' className='link' style={{ textDecoration: 'none' }} >
+                                Logout
+                            </Link></Button>
                 </Toolbar>
             </AppBar>
         </Box>

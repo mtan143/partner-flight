@@ -28,8 +28,6 @@ function BasicTimePicker(props) {
                     <KeyboardTimePicker
                         autoOk={true}
                         variant="inline"
-                        // placeholder="08:00 AM"
-                        // mask="__:__ _M"
                         format="HH:mm a"
                         inputVariant="outlined"
                         margin="normal"

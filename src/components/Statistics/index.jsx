@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { DoanhThuData } from './data';
 import flightApi from './../../Api/flightApi';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,6 +15,9 @@ import {
     YAxis,
     CartesianGrid
 } from 'recharts';
+import { display, padding } from '@mui/system';
+import jwtDecode from 'jwt-decode';
+import { Grid } from '@mui/material';
 
 Statistics.propTypes = {
 
@@ -26,12 +28,19 @@ function Statistics() {
     const [listData, setListData] = useState([]);
     const [monthData,setMonthData] = useState([]);
     const [classTypeData,setClassTypeData] = useState([]);
+    const [filterMonth, setFilterMonth] = useState(monthData);
     const [filter,setFilter] = useState(yearData);
+    function formatVnd(n) {
+      return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    };
     useEffect(() => {
         const flightChart = async () => {
-            const yearStatistic = await flightApi.getAllStatisticYear("AL978AWBCDVJ");
-            const monthStatistic =  await flightApi.getAllStatisticMonth("AL978AWBCDVJ");
-            const classTypeStatictis = await flightApi.getAllStatisticClassType("AL978AWBCDVJ");
+            // const yearStatistic = await flightApi.getAllStatisticYear(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
+            // const monthStatistic =  await flightApi.getAllStatisticMonth(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
+            // const classTypeStatictis = await flightApi.getAllStatisticClassType(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
+            const yearStatistic = await flightApi.getAllStatisticYear("PAR1");
+            const monthStatistic =  await flightApi.getAllStatisticMonth("PAR1");
+            const classTypeStatictis = await flightApi.getAllStatisticClassType("PAR1");
             setYearData(yearStatistic.data);
             setMonthData(monthStatistic.data);
             setClassTypeData(classTypeStatictis.data);
@@ -44,8 +53,10 @@ function Statistics() {
     return (
             <>
             <h2 style={{ color: '#1BA0E2' }}>Biểu đồ doanh thu chuyến bay</h2>
-            <Box sx={{ width: 200,margin:"auto" }}>
-                                            <FormControl fullWidth>
+            <Box sx={{ width: 400,margin:"auto", display:"flex" ,paddingBottom:20}}>
+              <Grid container spacing={2}>
+              <Grid item xs={6}>
+              <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Statistic</InputLabel>
 
         <Select
@@ -60,10 +71,34 @@ function Statistics() {
           }     
         >
           <MenuItem value={yearData}>Year</MenuItem>
-          <MenuItem value={monthData}>Month</MenuItem>
+          <MenuItem value={filterMonth}>Month</MenuItem>
           <MenuItem value={classTypeData}>ClassType</MenuItem>
         </Select>
       </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+              <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Chọn năm</InputLabel>
+
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="chọn năm"
+          onChange={(event)=> {
+            setFilterMonth(monthData.filter(data => data.year.substring(0,4)== event.target.value))
+          }}
+        >
+        {yearData.map((value) =>
+                                 <MenuItem style={{padding:5,display:"block"}} key={value.year} value={value.year}>{value.year}</MenuItem>) 
+        }
+        </Select>
+      </FormControl>
+              </Grid>
+                 </Grid>
+
+                                           
+      
+                                         
       </Box>
             <div style={{ width: 1200, marginLeft: 250, }}>
 
