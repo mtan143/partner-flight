@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { DoanhThuData } from './data';
 import flightApi from './../../Api/flightApi';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,6 +16,8 @@ import {
     CartesianGrid
 } from 'recharts';
 import { display, padding } from '@mui/system';
+import jwtDecode from 'jwt-decode';
+import { Grid } from '@mui/material';
 
 Statistics.propTypes = {
 
@@ -34,9 +35,12 @@ function Statistics() {
     };
     useEffect(() => {
         const flightChart = async () => {
-            const yearStatistic = await flightApi.getAllStatisticYear("AL978AWBCDVJ");
-            const monthStatistic =  await flightApi.getAllStatisticMonth("AL978AWBCDVJ");
-            const classTypeStatictis = await flightApi.getAllStatisticClassType("AL978AWBCDVJ");
+            // const yearStatistic = await flightApi.getAllStatisticYear(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
+            // const monthStatistic =  await flightApi.getAllStatisticMonth(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
+            // const classTypeStatictis = await flightApi.getAllStatisticClassType(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
+            const yearStatistic = await flightApi.getAllStatisticYear("PAR1");
+            const monthStatistic =  await flightApi.getAllStatisticMonth("PAR1");
+            const classTypeStatictis = await flightApi.getAllStatisticClassType("PAR1");
             setYearData(yearStatistic.data);
             setMonthData(monthStatistic.data);
             setClassTypeData(classTypeStatictis.data);
@@ -50,7 +54,9 @@ function Statistics() {
             <>
             <h2 style={{ color: '#1BA0E2' }}>Biểu đồ doanh thu chuyến bay</h2>
             <Box sx={{ width: 400,margin:"auto", display:"flex" ,paddingBottom:20}}>
-                                            <FormControl fullWidth>
+              <Grid container spacing={2}>
+              <Grid item xs={6}>
+              <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Statistic</InputLabel>
 
         <Select
@@ -69,8 +75,9 @@ function Statistics() {
           <MenuItem value={classTypeData}>ClassType</MenuItem>
         </Select>
       </FormControl>
-      
-                                            <FormControl fullWidth>
+              </Grid>
+              <Grid item xs={6}>
+              <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Chọn năm</InputLabel>
 
         <Select
@@ -86,6 +93,12 @@ function Statistics() {
         }
         </Select>
       </FormControl>
+              </Grid>
+                 </Grid>
+
+                                           
+      
+                                         
       </Box>
             <div style={{ width: 1200, marginLeft: 250, }}>
 

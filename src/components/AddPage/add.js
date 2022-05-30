@@ -36,10 +36,10 @@ function Add(props) {
         defaultValues: {
             // FlightName: "",
             airlineId: 2,
-            hnPrice:300000,
-            tgPrice:300000,
-            ptPrice:300000,
-            pt_dbPrice:300000,
+            // hnPrice:300000,
+            // tgPrice:300000,
+            // ptPrice:300000,
+            // pt_dbPrice:300000,
             // AirlineID: "",
             // GateID: "",
             // FlightStatus: "",
@@ -72,16 +72,16 @@ function Add(props) {
     const onSubmit = async (values) => {
         const newValues = JSON.stringify( {
             ...values,
-            timeArrival: moment(values.timeArrival).format("HH:MM"),
-            timeDeparture:  moment(values.timeDeparture).format("HH:MM"),
-            departure:  moment(values.timeArrival).format("YYYY-MM-DD")
+            timeArrival: moment(values.timeArrival).format("HH:mm"),
+            timeDeparture:  moment(values.timeDeparture).format("HH:mm"),
+            departure:  moment(values.departure).format("YYYY-MM-DD")
         })
-        console.log(newValues);
         try{
             await flightApi.add(newValues);
+            alert("thêm thành công");
         }
         catch{
-            console.log("lồi rồi ", errors);
+           alert("lỗi rồi", errors);
         }
     }
     const depaturePlace = {
@@ -140,40 +140,15 @@ function Add(props) {
                 <BasicTimePicker name='timeDeparture' label="Thời gian cất cánh" control={control} />
                 <BasicTimePicker name='timeArrival' label="Thời gian hạ cánh" control={control} />
             </Box>
-            <h2 style={{ color: '#1BA0E2', marginTop: '50px' }}>Hạng ghế</h2>
+            <h2 style={{ color: '#1BA0E2', margin: 50 }}>Hạng ghế</h2>
             <div className='text' style={{ display: 'flex', justifyContent: 'space-evenly' , marginBottom: 20}}>
                 <div>
                     <Grid container direction={"column"} spacing={3}>
-                        <p style={{ fontSize: '20px' }}>Phổ thông</p>
                         {/* <InputField name='SeatCodePT' label='Mã hạng ghế' control={control} /><br /> */}
-                        <InputField name='ptQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng" }} /><br />
-                        <InputField name='ptPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
+                        <InputField name='stdQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng",min: { value: 30, message: "số ghế không được thấp hơn 30" }, max: { value: 45, message: "số ghế không được cao hơn 45" } }} /><br />
+                        <InputField name='stdPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
                     </Grid>
 
-                </div>
-                <div>
-                    <Grid container direction={"column"} spacing={3}>
-                        <p style={{ fontSize: '20px' }}>Phổ thông đặc biệt</p>
-                        {/* <InputField name='SeatCodePTDB' label='Mã hạng ghế' control={control} /><br /> */}
-                        <InputField name='pt_dbQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng" }} /><br />
-                        <InputField name='pt_dbPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
-                    </Grid>
-                </div>
-                <div>
-                    <Grid container direction={"column"} spacing={3}>
-                        <p style={{ fontSize: '20px' }}>Thương gia</p>
-                        {/* <InputField name='SeatCodeTG' label='Mã hạng ghế' control={control} /><br /> */}
-                        <InputField name='tgQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng" }} /><br />
-                        <InputField name='tgPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
-                    </Grid>
-                </div>
-                <div>
-                    <Grid container direction={"column"} spacing={3}>
-                        <p style={{ fontSize: '20px' }}>Hạng nhất</p>
-                        {/* <InputField name='SeatCodeHN' label='Mã hạng ghế' control={control} /><br /> */}
-                        <InputField name='hnQuantity' label='Số lượng' control={control} rules={{ required: "Chưa nhập số lượng" }} /><br />
-                        <InputField name='hnPrice' label='Giá vé' control={control} rules={{ required: "Chưa nhập giá vé", min: { value: 300000, message: "giá không được thấp hơn 300000k" }, max: { value: 3000000, message: "giá không được cao hơn 3000000k" } }} />
-                    </Grid>
                 </div>
             </div>
             {/* <SimplePaper /> */}
