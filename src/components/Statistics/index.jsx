@@ -38,9 +38,9 @@ function Statistics() {
             // const yearStatistic = await flightApi.getAllStatisticYear(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
             // const monthStatistic =  await flightApi.getAllStatisticMonth(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
             // const classTypeStatictis = await flightApi.getAllStatisticClassType(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
-            const yearStatistic = await flightApi.getAllStatisticYear("PAR1");
-            const monthStatistic =  await flightApi.getAllStatisticMonth("PAR1");
-            const classTypeStatictis = await flightApi.getAllStatisticClassType("PAR1");
+            const yearStatistic = await flightApi.getAllStatisticYear(localStorage.getItem("code"));
+            const monthStatistic =  await flightApi.getAllStatisticMonth(localStorage.getItem("code"));
+            const classTypeStatictis = await flightApi.getAllStatisticClassType(localStorage.getItem("code"));
             setYearData(yearStatistic.data);
             setMonthData(monthStatistic.data);
             setClassTypeData(classTypeStatictis.data);

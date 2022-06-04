@@ -10,6 +10,8 @@ import DoanhThu from './components/DoanhThu/DoanhThu';
 import Statistics from './components/Statistics';
 import Login from './components/Login/Login';
 import GroupRegister from './components/Register/GroupRegister';
+import FlightCode from './components/FlightCode/index';
+import Tickets from './components/Tickets/index';
 // import Footer from './Footer/Index';
 
 
@@ -20,10 +22,15 @@ function App() {
 
       
       <Routes>
-        
+        <Route exact path='/tickets' element={<>
+          <ResponsiveAppBar />
+      <h2 style={{ fontWeight: '500', textAlign: 'center' }}>MANAGEMENT PAGE</h2>
+          <Tickets />
+        </>} />
         <Route exact path='/' element={<Login />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<GroupRegister />} />
+        <Route excat path='/flightcode' element={<FlightCode/>}/>
         <Route exact path="/add" element={<>
           <ResponsiveAppBar />
       <h2 style={{ fontWeight: '500', textAlign: 'center' }}>MANAGEMENT PAGE</h2>

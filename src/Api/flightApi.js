@@ -24,7 +24,18 @@ const flightApi = {
     getAllStatisticClassType(id){
         const url =`/customers/flights/airline/statistic/classtype/${id}`
         return axiosClient.get(url);
+    },
+    syncAccount(data){
+        const url = '/partners/account'
+        return axiosClient.post(url,data);
+    },
+    getPartnerCode(id){
+        const url =`/partners/account/${id}`
+        return axiosClient.get(url);
+    },
+    getTickets(id){
+        const url =`/customers/tickets/transaction-partner/${id}`
+        return axiosClient.get(url);        
     }
-    
 }
 export default flightApi;

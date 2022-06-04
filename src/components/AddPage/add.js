@@ -35,7 +35,7 @@ function Add(props) {
     const { control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             // FlightName: "",
-            airlineId: 2,
+            airlineCode: localStorage.getItem("code"),
             // hnPrice:300000,
             // tgPrice:300000,
             // ptPrice:300000,

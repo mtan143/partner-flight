@@ -17,7 +17,7 @@ Index.propTypes = {
 
 function Index(props) {
     const handleOnClick = () => {
-        localStorage.removeItem("id");
+        localStorage.clear();
     }
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -37,6 +37,11 @@ function Index(props) {
                         <Button color="inherit" style={{ marginLeft: '10px' }}>
                             <Link to='/thongke' className='link' style={{ textDecoration: 'none' }} >
                                 Chart Thống kê
+                            </Link>
+                        </Button>
+                        <Button color="inherit" style={{ marginLeft: '10px' }}>
+                            <Link to='/tickets' className='link' style={{ textDecoration: 'none' }} >
+                                tickets
                             </Link>
                         </Button>
                     </Typography>

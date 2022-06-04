@@ -4,6 +4,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { Box, Grid } from '@mui/material';
+import Button from '@mui/material/Button';
+import flightApi from '../../Api/flightApi';
+import { Link, Navigate } from 'react-router-dom';
 
 FlightCode.propTypes = {
     
@@ -14,7 +18,7 @@ const airline = [
         name: "Air China"
     },
     {
-        airlineCode: "PAR1",
+        airlineCode: "AL978AWBCDVJ",
         name: "Vietjet Air"
     },
     {
@@ -95,12 +99,25 @@ const airline = [
 
 function FlightCode(props) {
     const [value, setValue] = React.useState('');
+    const handleClick = async() => {
+        const data = JSON.stringify({
+            airlineCode: value,
+            partnerId: localStorage.getItem("partnerId"),
+        })
+        try{
+            flightApi.syncAccount(data);
+        }
+       catch(error){
+            alert("lỗi rồi" + error);
+       }
+       Navigate("/login");
+    }
 
     const handleChange = (event) => {
       setValue(event.target.value);
     };
     return (
-        <FormControl>
+        <FormControl >
         <FormLabel id="demo-controlled-radio-buttons-group">Airline</FormLabel>
         <RadioGroup
           aria-labelledby="demo-controlled-radio-buttons-group"
@@ -108,12 +125,24 @@ function FlightCode(props) {
           value={value}
           onChange={handleChange}
         >
-            {airline.map(value => 
+             <Box sx={{ width: 800,margin:"auto", display:"flex"}}>
+             <Grid container spacing={2} justifyContent="center">
+             
+             {airline.map(value => 
+                (
+                    <Grid item xs={6} md={4} textAlign="left">
                 <FormControlLabel value={value.airlineCode} control={<Radio />} label={value.name}/>
+                </Grid>
+                )
             )}
-          
+            </Grid>
+            </Box>
         </RadioGroup>
+        <Link to='/login' className='link' style={{ textDecoration: 'none' }} >
+        <Button type="submit" onClick={handleClick} variant="contained" style={{ backgroundColor: '#1BA0E2' }}>Submit</Button>
+        </Link>
       </FormControl>
+      
     );
 }
 

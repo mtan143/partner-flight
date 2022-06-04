@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Title from "./Title";
@@ -8,8 +7,8 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
+import jwtDecode from "jwt-decode";
 export default function PartnerRegister(){
-    const [getCookies,setCookies]=useCookies();
     const [getPageId,setPageId]=useState(1);
     const [getEmail,setEmail]=useState();
     const [getPartnerName,setPartnerName]=useState("");
@@ -29,8 +28,8 @@ export default function PartnerRegister(){
             APP: "FLIGHT"
         }).then((response)=>{
             if(response.data.STATUS){
-                console.log(response.data);
-                Navigate("/login");
+                localStorage.setItem("partnerId",(jwtDecode(response.data.TOKEN).PARTNER_ID));
+                Navigate("/flightcode");
                 return;
             }
             else{

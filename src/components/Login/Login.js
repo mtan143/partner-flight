@@ -1,15 +1,24 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, Navigate,useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import "../PartnerRegisterAndLogin.css"
 import jwtDecode from "jwt-decode";
 import FlightCode from "../FlightCode";
+import flightApi from "../../Api/flightApi";
 const PartnerLogin = () => {
   const Navigate=useNavigate();
-  const [getCookies,setCookies]=useCookies();
   const [getEmail, setEmail] = useState("");
   const [getPassword, setPassword] = useState("");
+  const sync = async(id) => {
+    try{
+     const code = await flightApi.getPartnerCode(id);
+     localStorage.setItem("code",code.data.airlineCode);
+     Navigate("/doanhthu");
+    }
+    catch(error){
+      window.alert("lỗi rồi"+ error);
+    }
+  }
   function Login() {
     axios.post("https://gxyvy04g01backend-production.up.railway.app/Partner/Login",
       {
@@ -19,10 +28,7 @@ const PartnerLogin = () => {
 
       }).then(res=>{
           if(res.data.STATUS){
-            console.log(res.data.TOKEN);
-            localStorage.setItem("id", jwtDecode(res.data.TOKEN).PARTNER_ID)
-            
-            Navigate("/doanhthu");
+            sync(jwtDecode(res.data.TOKEN).PARTNER_ID)
           }
           else{
             window.alert(res.data.ERROR);
@@ -85,7 +91,6 @@ const PartnerLogin = () => {
           </div>
         </div>
       </div>
-      <FlightCode />
     </>
   );
 };

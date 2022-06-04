@@ -33,7 +33,7 @@ function DoanhThu(props) {
         const fetchFlights = async () =>{ 
             try{
                // const flightList = await flightApi.getAll(jwtDecode(localStorage.getItem("token")).PARTNER_ID);
-                const flightList = await flightApi.getAll("PAR1");
+                const flightList = await flightApi.getAll(localStorage.getItem("code"));
                 console.log(flightList.data);
                 if((filterM != 'none' && filterY != 'none' && filterD != 'none') )
                 {
