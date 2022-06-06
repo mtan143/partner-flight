@@ -13,7 +13,7 @@ const PartnerLogin = () => {
     try{
      const code = await flightApi.getPartnerCode(id);
      localStorage.setItem("code",code.data.airlineCode);
-     Navigate("/doanhthu");
+      Navigate("/doanhthu");
     }
     catch(error){
       window.alert("lỗi rồi"+ error);

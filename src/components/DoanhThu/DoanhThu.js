@@ -10,7 +10,7 @@ import './DoanhThu.css'
 import DoanhThuList from './DoanhThuList/DoanhThuList';
 import axios from 'axios';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import flightApi from '../../Api/flightApi';
 import { Grid } from '@mui/material';
 import { FilterList } from '@material-ui/icons';

@@ -12,19 +12,18 @@ import Login from './components/Login/Login';
 import GroupRegister from './components/Register/GroupRegister';
 import FlightCode from './components/FlightCode/index';
 import Tickets from './components/Tickets/index';
+import Footer from './components/Footer';
 // import Footer from './Footer/Index';
 
 
 function App() {
   return (
+    
     <div className="App">
-      
-
-      
       <Routes>
         <Route exact path='/tickets' element={<>
           <ResponsiveAppBar />
-      <h2 style={{ fontWeight: '500', textAlign: 'center' }}>MANAGEMENT PAGE</h2>
+      <h2 style={{ fontWeight: '500', textAlign: 'center',margin: '25px 0' }}>MANAGEMENT PAGE</h2>
           <Tickets />
         </>} />
         <Route exact path='/' element={<Login />} />
@@ -33,23 +32,21 @@ function App() {
         <Route excat path='/flightcode' element={<FlightCode/>}/>
         <Route exact path="/add" element={<>
           <ResponsiveAppBar />
-      <h2 style={{ fontWeight: '500', textAlign: 'center' }}>MANAGEMENT PAGE</h2>
+      <h2 style={{ fontWeight: '500', textAlign: 'center', margin: '25px 0' }}>MANAGEMENT PAGE</h2>
           <AddPage />
         </>}/>
         <Route exact path="/doanhthu" element={<>
           <ResponsiveAppBar />
-      <h2 style={{ fontWeight: '500', textAlign: 'center' }}>MANAGEMENT PAGE</h2>
+      <h2 style={{ fontWeight: '500', textAlign: 'center', margin: '25px 0' }}>MANAGEMENT PAGE</h2>
           <DoanhThu />
         </>} />
         <Route exact path="/thongke" element={<>
           <ResponsiveAppBar />
-      <h2 style={{ fontWeight: '500', textAlign: 'center' }}>MANAGEMENT PAGE</h2>
+      <h2 style={{ fontWeight: '500', textAlign: 'center' , margin: '25px 0'}}>MANAGEMENT PAGE</h2>
           <Statistics />
         </>} />
       </Routes>
-
-      {/* <img src={travelokabar} alt='ảnh lỗi' style={{ height: '100px', width: '100%' }} /> */}
-      {/* <Footer /> */}
+      { localStorage.getItem("code") === null ? <></> :  <Footer />}
     </div>
 
   );

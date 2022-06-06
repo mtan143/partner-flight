@@ -16,6 +16,90 @@ Index.propTypes = {
 
 
 function Index(props) {
+    function switchRender(data){
+        switch(data)
+        {
+            case "AL999AWBCDCA":
+            return "Air China";
+        
+        
+            case "AL978AWBCDVJ":
+            return "Vietjet Air";
+        
+        
+            case "AL738AWBCDVN":
+            return "Vietnam Airline";
+        
+        
+            case "AL366AWBCDQH":
+            return "Bamboo Airways";
+        
+        
+            case "AL375AWBCD3K":
+            return "Jetstar Pacific Airlines";
+        
+        
+            case "AL618AWBCDSQ":
+            return "Singapore Airlines";
+        
+        
+            case "AL900AWBCDFD":
+            return "Thai Air Asia";
+        
+        
+            case "AL217AWBCDTG":
+            return "Thai Airways";
+        
+        
+            case "AL016AWBCDUA":
+            return "United Airlines";
+        
+        
+            case "AL310AWBCDSL":
+            return "Thai Lion Air";
+        
+        
+            case "AL180AWBCDKE":
+            return "Korea Air";
+        
+        
+            case "AL851AWBCDHX":
+            return "Hongkong Airlines";
+        
+        
+            case "AL131AWBCDJL":
+            return "Japan Airline";
+        
+        
+            case "AL784AWBCDCZ":
+            return "China Southern Airlines";
+        
+        
+            case "AL043AWBCDKA":
+            return "Dragon Air";
+        
+        
+            case "AL388AWBCDTR":
+            return "Tiger Airways";
+        
+        
+            case "AL672AWBCDBI":
+            return "Royal Brunei Airlines";
+        
+        
+            case "AL157AWBCDQR":
+            return "Qatar Airways";
+        
+        
+            case "AL774AWBCDFM":
+            return "Shanghai Airlines Co Ltd";
+        
+        
+            case "AL057AWBCDAF":
+            return "Air France";
+        }
+        
+    }
     const handleOnClick = () => {
         localStorage.clear();
     }
@@ -26,7 +110,7 @@ function Index(props) {
                     <Typography style={{ textAlign: 'left' }} variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         <Button color="inherit">
                             <Link to='/doanhthu' className='link' style={{ textDecoration: 'none', fontSize: '20px' }} >
-                                Airline Management
+                                {switchRender(localStorage.getItem("code"))} Management
                             </Link>
                         </Button>
                         <Button color="inherit" style={{ marginLeft: '10px' }}>

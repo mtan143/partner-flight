@@ -39,15 +39,15 @@ function Tickets(props) {
     function renderSwitch(data){
       switch(data){
         case "Tao":
-          return <i title='Tạo' class="fa-solid fa-clipboard-check"></i>;
+          return <i title='Tạo' className="fa-solid fa-clipboard-check fa-2xl"></i>;
 
         case "Da_Dat":
-          return <i title='Đã Đặt' class="fa-solid fa-cart-plus"></i>;
+          return <i title='Đã Đặt' className="fa-solid fa-cart-plus fa-2xl"></i>;
         
         case "Da_Dung":
-          return <i title='Đã Dùng' class="fa-solid fa-user-check"></i>;
+          return <i title='Đã Dùng' className="fa-solid fa-user-check fa-2xl"></i>;
         case "Da_Huy":
-          return <i title='Đã Hủy' class="fa-solid fa-trash"></i>;
+          return <i title='Đã Hủy' className="fa-solid fa-trash fa-2xl"></i>;
       }
     }
 
@@ -82,18 +82,19 @@ function Tickets(props) {
                     <Typography variant="body2" gutterBottom>
                     {ticket.createdDate}
                     </Typography>
-                    <Typography variant="body2" gutterBottom>
-                    {renderSwitch(ticket.ticketStatus)}
-                    </Typography>
+                   
                     <Typography variant="body2" color="text.secondary">
                       {ticket.ticketCode}
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid item flexDirection="column-reverse" display="flex">
+                <Grid item flexDirection="column-reverse" display="flex" justifyContent="space-around">
                   <Typography variant="subtitle1" component="div">
                     Total price: {formatVnd(ticket.totalPrice,"VNĐ")}
                   </Typography>
+                  <Typography  gutterBottom>
+                    {renderSwitch(ticket.ticketStatus)}
+                    </Typography>
                 </Grid>
               </Grid>
               

@@ -36,6 +36,10 @@ const flightApi = {
     getTickets(id){
         const url =`/customers/tickets/transaction-partner/${id}`
         return axiosClient.get(url);        
+    },
+    getFooterData(id){
+        const url =`/partners/account/total/${id}`
+        return axiosClient.get(url);
     }
 }
 export default flightApi;
