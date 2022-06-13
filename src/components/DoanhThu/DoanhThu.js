@@ -70,7 +70,7 @@ function DoanhThu(props) {
              }
         }
         fetchFlights();
-    },[filterM,filterY,filterD,localStorage.getItem("code")]);
+    },[filterM,filterY,filterD]);
     const [list, setList] = useState([]);
     const handleChangeThu = (event) => {
         setThu(event.target.value);

@@ -13,6 +13,13 @@ Footer.propTypes = {
 };
 
 function Footer(props) {
+  const formatCash = n => {
+    if (n < 1e3) return n;
+    if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + "K+";
+    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + "M+";
+    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + "B+";
+    if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+  };
     const [fData,setFData] = useState([]);
     useEffect(()=> {
         const fetchData = async () => {
@@ -83,7 +90,7 @@ function Footer(props) {
                             </Grid>
                             <Grid  item xs={12} sm={4}>
                                 <Box width="150px" margin="auto" borderBottom={1}><span  style={{fontSize:"100px", fontFamily:"fantasy"}} color="inherit">
-                                    {fData.totalPrice}
+                                    {formatCash(fData.totalPrice)}
                                     </span></Box>
                                 <Box marginTop="10px">
                                     TOTALPRICE
