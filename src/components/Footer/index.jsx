@@ -27,7 +27,7 @@ function Footer(props) {
             }
         }
         fetchData();
-    },[]) 
+    },[localStorage.getItem("code")]) 
     function Copyright() {
         return (
           <Typography marginTop="50px" variant="body2" color="text.secondary">

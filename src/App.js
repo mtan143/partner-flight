@@ -4,7 +4,7 @@ import './App.css';
 import ResponsiveAppBar from './ResponsiveAppBar/Index';
 // import BasicTable from './BasicTable/Index';
 import { Link, Route, Routes } from 'react-router-dom';
-import { Component } from 'react';
+import { Component, useEffect } from 'react';
 import AddPage from './components/AddPage/add';
 import DoanhThu from './components/DoanhThu/DoanhThu';
 import Statistics from './components/Statistics';
@@ -46,7 +46,7 @@ function App() {
           <Statistics />
         </>} />
       </Routes>
-      { localStorage.getItem("code") === null ? <></> :  <Footer />}
+      {/* { localStorage.getItem("code") === null ? <></> :  <Footer />} */}
     </div>
 
   );

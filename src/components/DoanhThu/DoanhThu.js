@@ -14,6 +14,7 @@ import { Link, Navigate } from 'react-router-dom';
 import flightApi from '../../Api/flightApi';
 import { Grid } from '@mui/material';
 import { FilterList } from '@material-ui/icons';
+import Footer from '../Footer';
 
 DoanhThu.propTypes = {
 
@@ -69,7 +70,7 @@ function DoanhThu(props) {
              }
         }
         fetchFlights();
-    },[filterM,filterY,filterD]);
+    },[filterM,filterY,filterD,localStorage.getItem("code")]);
     const [list, setList] = useState([]);
     const handleChangeThu = (event) => {
         setThu(event.target.value);
@@ -173,6 +174,7 @@ function DoanhThu(props) {
                 <Button type="submit" variant="contained" style={{float:"left", backgroundColor: '#FF6F00' , marginLeft: '10px', padding: '15px 20px'}}>
                                 +</Button></Link>
             <DoanhThuList list={list} />
+            { localStorage.getItem("code") === null ? <></> :  <Footer />}
         </div>
     );
 }

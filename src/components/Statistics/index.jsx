@@ -18,6 +18,7 @@ import {
 import { display, padding } from '@mui/system';
 import jwtDecode from 'jwt-decode';
 import { Grid } from '@mui/material';
+import Footer from '../Footer';
 
 Statistics.propTypes = {
 
@@ -156,6 +157,7 @@ function Statistics() {
       />
     </LineChart>
                     </div>
+                    { localStorage.getItem("code") === null ? <></> :  <Footer />}
     </>
     );
 }

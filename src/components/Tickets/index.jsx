@@ -9,6 +9,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import { Box } from '@mui/system';
 import flightApi from '../../Api/flightApi';
 import ticketImage from '../../img/ticket.jpg';
+import Footer from '../Footer';
 Tickets.propTypes = {
     
 };
@@ -53,6 +54,7 @@ function Tickets(props) {
 
     
     return (
+      <>
         <Box sx={{ flexGrow: 1 }}>
         <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
          {ticktes.map((ticket,index)=> 
@@ -64,9 +66,9 @@ function Tickets(props) {
               flexGrow: 1,
               maxWidth:  600,
               backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+              theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
             }}
-          >
+            >
             <Grid container spacing={2}>
               <Grid item>
                 <ButtonBase sx={{ width: 128, height: 128 }}>
@@ -104,7 +106,8 @@ function Tickets(props) {
         )}
               </Grid>
               </Box>
-        
+              { localStorage.getItem("code") === null ? <></> :  <Footer />}
+        </>
     );
 }
 

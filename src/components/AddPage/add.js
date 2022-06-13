@@ -28,6 +28,7 @@ import { format } from 'date-fns';
 import BasicTimePicker from './../../BasicTimePicker/index';
 import flightApi from '../../Api/flightApi';
 import { alpha } from '@material-ui/core/styles'
+import Footer from '../Footer';
 
 function Add(props) {
     const [date, setDate] = useState(new Date());
@@ -106,6 +107,7 @@ function Add(props) {
         "Nha Trang, Việt Nam": "Nha Trang, Việt Nam",
     }
     return (
+        <>
         <form onSubmit={handleSubmit(onSubmit)}>
             <h2 style={{ color: '#1BA0E2' }}>Add Flight</h2>
             <Stack className='Button' spacing={2} direction="row">
@@ -124,7 +126,7 @@ function Add(props) {
                 }}
                 noValidate
                 autoComplete="off"
-            >
+                >
                 <InputField name="name" label="Tên chuyến bay" control={control} rules={{ required: "Chưa nhập tên chuyến bay bé ơi" }} />
             
                 <BasicDatePicker name='departure' label='Ngày khởi hành' control={control} />
@@ -153,6 +155,8 @@ function Add(props) {
             </div>
             {/* <SimplePaper /> */}
         </form >
+        { localStorage.getItem("code") === null ? <></> :  <Footer />}
+                </>
     );
 }
 
