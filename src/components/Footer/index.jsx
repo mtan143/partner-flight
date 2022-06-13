@@ -74,7 +74,7 @@ function Footer(props) {
         <Grid container spacing={8}>
                             <Grid  item xs={12} sm={4}>
                                 <Box width="150px" margin="auto" borderBottom={1}> <span style={{fontSize:"100px", fontFamily:"fantasy"}} color="inherit">
-                                        {fData.totalFlight}
+                                        {formatCash(fData.totalFlight)}
                                     </span></Box>
                                 <Box marginTop="10px">
                                    TOTALFLIGHT
@@ -82,7 +82,7 @@ function Footer(props) {
                             </Grid>
                             <Grid  item xs={12} sm={4}>
                                 <Box width="150px" margin="auto" borderBottom={1}>  <span  style={{fontSize:"100px", fontFamily:"fantasy"}} color="inherit">
-                                    {fData.totalTicket}
+                                    {formatCash(fData.totalTicket)}
                                     </span></Box>
                                 <Box marginTop="10px">
                                   TOTALTICKETS
